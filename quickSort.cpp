@@ -5,6 +5,8 @@ Arguments:
 	low: index of first element in array (0 initially)
 	right: index of last element in array (size of array initially)
 */
-template <typename T> void quicksort(T* data, int low, int high){
+using namespace std;
 
+template <typename T> void quicksort(T* data, int low, int high){
+	cout << "quicksort";
 }

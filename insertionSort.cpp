@@ -5,6 +5,8 @@ Arguments:
 	low: index of first element in array (0 initially)
 	right: index of last element in array (size of array initially)
 */
-template <typename T> void insertionsort(T* data, int size){
+using namespace std;
 
+template <typename T> void insertionsort(T* data, int size){
+	cout << "insertionsort";
 }
