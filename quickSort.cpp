@@ -5,7 +5,6 @@ Arguments:
 	low: index of first element in array (0 initially)
 	right: index of last element in array (size of array initially)
 */
-
-void quicksort(T* data, int low, int high){
+template <typename T> void quicksort(T* data, int low, int high){
 
 }

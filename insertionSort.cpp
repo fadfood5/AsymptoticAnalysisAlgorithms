@@ -5,7 +5,6 @@ Arguments:
 	low: index of first element in array (0 initially)
 	right: index of last element in array (size of array initially)
 */
-
-void insertionsort(T* data, int size){
+template <typename T> void insertionsort(T* data, int size){
 
 }
