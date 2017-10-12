@@ -8,5 +8,16 @@ Arguments:
 using namespace std;
 
 template <typename T> void insertionsort(T* data, int size){
-	cout << "insertionsort";
+	cout << "insertionsort" << endl;
+	
+	int i, j, tmp;
+      for (i = 1; i < size; i++) {
+            j = i;
+            while (j > 0 && data[j - 1] > data[j]) {
+                  tmp = data[j];
+                  data[j] = data[j - 1];
+                  data[j - 1] = tmp;
+                  j--;
+            }
+      }
 }
