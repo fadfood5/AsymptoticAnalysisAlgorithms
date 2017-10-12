@@ -7,42 +7,29 @@ Arguments:
 */
 using namespace std;
 
-template<class T> inline void swap(T& v1,T& v2){
-  T temp=v2;
-  v2=v1;
-  v1=temp;
-}
+void quicksort(int arr[], int left, int right) {
+      int i = left, j = right;
+      int tmp;
+      int pivot = arr[(left + right) / 2];
 
-template <class T> int partitionArray(T data[], int lo, int hi){
-    int i, p;
-    T t;
-    p=data[lo];
-	while(lo<hi){
-    	while(data[lo]<p){
-    		lo++;
-    	}
-        while(data[hi]>p)
-            hi--;
-        if(lo<hi){
-            t=data[lo];
-            data[lo]=data[hi];
-            data[hi]=t;
-        }else{
-            t=p;
-            p=data[lo];
-            data[lo]=t;
-            break;
-        }
-     }
-     return hi;  
-}
+      /* partition */
+      while (i <= j) {
+            while (arr[i] < pivot)
+                  i++;
+            while (arr[j] > pivot)
+                  j--;
+            if (i <= j) {
+                  tmp = arr[i];
+                  arr[i] = arr[j];
+                  arr[j] = tmp;
+                  i++;
+                  j--;
+            }
+      };
 
-template <class T>
-void quicksort(T data[], int lo, int hi){
-  	int index,i;
-  	if(lo<hi){
-		index = partitionArray(data, lo, hi);
-		quicksort(lo, index-1, data);
-		quicksort(index+1, hi, data);
-	}
+      /* recursion */
+      if (left < j)
+            quicksort(arr, left, j);
+      if (i < right)
+            quicksort(arr, i, right);
 }
