@@ -15,6 +15,19 @@ DataArray::DataArray(int type, int size){
 	int arr[size];
 }
 
+template <typename T> void doubleCheckSort(T data[], int size){
+	int temp = 0;
+	for(int i=1; i < size; i++){
+		if(data[i] < data[i-1]){
+			temp = 1;
+			cout<< "Sorting is false" << endl;
+			break;
+		}
+	}
+	if(temp == 0)
+		cout<< "Sorting is correct" << endl;
+}
+
 int main(int argc, char *argv[]){
 	if ( argc != 3 ) // argc should be 3 for correct execution
     	cout<<"usage: "<< argv[0] <<" <filename>\n";
@@ -51,12 +64,15 @@ int main(int argc, char *argv[]){
 		switch(algoType[0]){
 			case 's':
 				selectionsort(arr, n);
+				doubleCheckSort(arr, n);
 				break;
 			case 'i':
 				insertionsort(arr, n);
+				doubleCheckSort(arr, n);
 				break;
 			case 'q':
 				quicksort(arr, 0, n);
+				doubleCheckSort(arr, n);
 				break;
 		}
 	}
