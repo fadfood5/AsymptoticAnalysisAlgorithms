@@ -7,10 +7,10 @@ Arguments:
 */
 using namespace std;
 
-void quicksort(int arr[], int low, int right) {
+template <class T> void quicksort(T arr[], int low, int right) {
       int i = low, j = right;
-      int tmp;
-      int pivot = arr[(low + right) / 2];
+      T tmp;
+      T pivot = arr[(low + right) / 2];
       while (i <= j) {
             while (arr[i] < pivot)
                   i++;
