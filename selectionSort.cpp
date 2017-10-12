@@ -7,7 +7,7 @@ Arguments:
 */
 using namespace std;
 
-template <typename T> void selectionsort(T data[], int size){
+template <class T> void selectionsort(T data[], int size){
 	cout << "selectionsort" << endl;
     int i,j,t;
 	for(i=0;i<size;i++){
