@@ -7,12 +7,10 @@ Arguments:
 */
 using namespace std;
 
-void quicksort(int arr[], int left, int right) {
-      int i = left, j = right;
+void quicksort(int arr[], int low, int right) {
+      int i = low, j = right;
       int tmp;
-      int pivot = arr[(left + right) / 2];
-
-      /* partition */
+      int pivot = arr[(low + right) / 2];
       while (i <= j) {
             while (arr[i] < pivot)
                   i++;
@@ -27,9 +25,8 @@ void quicksort(int arr[], int left, int right) {
             }
       };
 
-      /* recursion */
-      if (left < j)
-            quicksort(arr, left, j);
+      if (low < j)
+            quicksort(arr, low, j);
       if (i < right)
             quicksort(arr, i, right);
 }
