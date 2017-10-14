@@ -1,19 +1,8 @@
 #include <iostream>
-#include "selectionSort.cpp"
-#include "insertionSort.cpp"
-#include "quickSort.cpp"
+#include <chrono>
+typedef std::chrono::high_resolution_clock Clock;
 using namespace std;
-
-class DataArray{
-	public: 
-		DataArray(int t, int n); 
-		int size;
-		int arr[];
-};
-
-DataArray::DataArray(int type, int size){
-	int arr[size];
-}
+#include "Sorting.cpp"
 
 template <typename T> void doubleCheckSort(T data[], int size){
 	int temp = 0;
@@ -29,7 +18,7 @@ template <typename T> void doubleCheckSort(T data[], int size){
 }
 
 int main(int argc, char *argv[]){
-	if ( argc != 3 ) // argc should be 3 for correct execution
+	if ( argc != 4 ) // argc should be 3 for correct execution
     	cout<<"usage: "<< argv[0] <<" <filename>\n";
   	else {
   		//Get user input
@@ -37,23 +26,9 @@ int main(int argc, char *argv[]){
 		int n = atoi(argv[2]);
 
 		//Initialize array
-		int arr[n];
-		int arrKind = 2;
-
-		//Build the array
-		if(arrKind == 0){
-			for(int i=0; i<n; i++){
-				arr[i] = i;
-			}
-		}else if(arrKind == 1){
-			for(int i=0; i<n; i++){
-				arr[i] = 0;
-			}
-		}else if(arrKind == 2){
-			for(int i=0; i<n; i++){
-				arr[i] = rand() % 10;
-			}
-		}
+		Sorting<int> temp(n);
+		int typeArray = atoi(argv[3]); //0 for sorted array, 1 for constant array, 2 for random array
+		temp.fillArray(temp.arr, n, typeArray);
 
 		//Print array to test output before sort
 		// for(int i =0; i < n; i++){
@@ -61,20 +36,28 @@ int main(int argc, char *argv[]){
 		// }
 
 		//Choose algorithm based on user input
+		auto t1 = Clock::now();
+		auto t2 = Clock::now();
 		switch(algoType[0]){
 			case 's':
-				selectionsort(arr, n);
-				doubleCheckSort(arr, n);
+				temp.selectionsort(temp.arr, temp.size);
+    			t2 = Clock::now();
+				doubleCheckSort(temp.arr, temp.size);
 				break;
 			case 'i':
-				insertionsort(arr, n);
-				doubleCheckSort(arr, n);
+				temp.insertionsort(temp.arr, temp.size);
+    			t2 = Clock::now();
+				doubleCheckSort(temp.arr, temp.size);
 				break;
 			case 'q':
-				quicksort(arr, 0, n);
-				doubleCheckSort(arr, n);
+				temp.quicksort(temp.arr, 0, temp.size);
+    			t2 = Clock::now();
+				doubleCheckSort(temp.arr, temp.size);
 				break;
 		}
+		std::cout << "Time for " << temp.size << " " << algoType[0] << " in " <<  typeArray << ": "
+              << std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count()
+              << " nanoseconds" << std::endl;
 	}
 	return 0;
 }
