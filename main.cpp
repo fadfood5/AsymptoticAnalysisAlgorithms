@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
 	if ( argc != 4 ) // argc should be 3 for correct execution
     	cout<<"usage: "<< argv[0] <<" <filename>\n";
   	else {
-  		const rlim_t kStackSize = 16 * 1024 * 1024;   // min stack size = 16 MB
+  		const rlim_t kStackSize = 64 * 1024 * 1024;   // min stack size = 16 MB
 	    struct rlimit rl;
 	    int result;
 
