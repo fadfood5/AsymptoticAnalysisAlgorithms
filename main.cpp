@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sys/resource.h>
 #include <chrono>
 typedef std::chrono::high_resolution_clock Clock;
 using namespace std;
@@ -21,6 +22,23 @@ int main(int argc, char *argv[]){
 	if ( argc != 4 ) // argc should be 3 for correct execution
     	cout<<"usage: "<< argv[0] <<" <filename>\n";
   	else {
+  		const rlim_t kStackSize = 16 * 1024 * 1024;   // min stack size = 16 MB
+	    struct rlimit rl;
+	    int result;
+
+	    result = getrlimit(RLIMIT_STACK, &rl);
+	    if (result == 0)
+	    {
+	        if (rl.rlim_cur < kStackSize)
+	        {
+	            rl.rlim_cur = kStackSize;
+	            result = setrlimit(RLIMIT_STACK, &rl);
+	            if (result != 0)
+	            {
+	                fprintf(stderr, "setrlimit returned result = %d\n", result);
+	            }
+	        }
+	    }
   		//Get user input
 		char* algoType = argv[1];
 		int n = atoi(argv[2]);
@@ -42,17 +60,17 @@ int main(int argc, char *argv[]){
 			case 's':
 				temp.selectionsort(temp.arr, temp.size);
     			t2 = Clock::now();
-				doubleCheckSort(temp.arr, temp.size);
+				//doubleCheckSort(temp.arr, temp.size);
 				break;
 			case 'i':
 				temp.insertionsort(temp.arr, temp.size);
     			t2 = Clock::now();
-				doubleCheckSort(temp.arr, temp.size);
+				//doubleCheckSort(temp.arr, temp.size);
 				break;
 			case 'q':
 				temp.quicksort(temp.arr, 0, temp.size);
     			t2 = Clock::now();
-				doubleCheckSort(temp.arr, temp.size);
+				//doubleCheckSort(temp.arr, temp.size);
 				break;
 		}
 		std::cout << "Time for " << temp.size << " " << algoType[0] << " in " <<  typeArray << ": "
