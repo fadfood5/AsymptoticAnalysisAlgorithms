@@ -1,81 +1,136 @@
 #include <iostream>
-#include <sys/resource.h>
-#include <chrono>
-typedef std::chrono::high_resolution_clock Clock;
-using namespace std;
-#include "Sorting.cpp"
+#include <time.h>
+#include <ctime>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstring>
+#include "Sorting.hpp"
+//create sorted data for type T
+template<class T>
+void CreateSortedData(T* data, unsigned size);
+//create constant data of type T
+template<class T>
+void CreateConstantData(T *data, unsigned size);
+//create random data of type T
+template<class T>
+void CreateRandomData(T *data, unsigned size);
+//helper function for creating data
+template<class T>
+bool CreateData(T* data, char* type, unsigned size);
+//function to check if data is sorted after running algorithm
+template<class T>
+bool IsSorted(T* data, unsigned size);
 
-template <typename T> void doubleCheckSort(T data[], int size){
-	int temp = 0;
-	for(int i=1; i < size; i++){
-		if(data[i] < data[i-1]){
-			temp = 1;
-			cout<< "Sorting is false" << endl;
-			break;
-		}
+int main(int argc, char *argv[])
+{
+	//check number of params
+	if (argc != 4)
+	{
+		std::cout << "Usage: Sorting <sort> <size> <type of data>" << std::endl;
+		return 1;
 	}
-	if(temp == 0)
-		cout<< "Sorting is correct" << endl;
-}
 
-int main(int argc, char *argv[]){
-	if ( argc != 4 ) // argc should be 3 for correct execution
-    	cout<<"usage: "<< argv[0] <<" <filename>\n";
-  	else {
-  		const rlim_t kStackSize = 64 * 1024 * 1024;   // min stack size = 16 MB
-	    struct rlimit rl;
-	    int result;
+	//create sorted, constant, or random data based on parameters
+	unsigned size = atoi(argv[2]);
+	int *data = new int[size];
+	if (!CreateData<int>(data, argv[3], size))
+	{
+		return 1;
+	}
 
-	    result = getrlimit(RLIMIT_STACK, &rl);
-	    if (result == 0)
-	    {
-	        if (rl.rlim_cur < kStackSize)
-	        {
-	            rl.rlim_cur = kStackSize;
-	            result = setrlimit(RLIMIT_STACK, &rl);
-	            if (result != 0)
-	            {
-	                fprintf(stderr, "setrlimit returned result = %d\n", result);
-	            }
-	        }
-	    }
-  		//Get user input
-		char* algoType = argv[1];
-		int n = atoi(argv[2]);
+	//start clock for timing
+	std::clock_t begin = std::clock();
+	//create Sorting object and call correct sort
+	Sorting<int>sorting;
+	if (strcmp(argv[1], "q") == 0)
+	{
+		sorting.quicksort(data, 0, size - 1);
+	}
+	else if (strcmp(argv[1], "s") == 0)
+	{
+		sorting.selectionsort(data, size);
+	}
+	else if (strcmp(argv[1], "i") == 0)
+	{
+		sorting.insertionsort(data, size);
+	}
+	else
+	{
+		std::cerr << "Incorrect sorting algorithm specified." << std::endl;
+		return 1;
+	}
+	//end clock for timing
+	std::clock_t end = std::clock();
+	std::cout << "It took " << static_cast<double>((end - begin) / CLOCKS_PER_SEC) << " seconds to sort the data." << std::endl;
 
-		//Initialize array
-		Sorting<int> temp(n);
-		int typeArray = atoi(argv[3]); //0 for sorted array, 1 for constant array, 2 for random array
-		temp.fillArray(temp.arr, n, typeArray);
-
-		//Print array to test output before sort
-		// for(int i =0; i < n; i++){
-		// 	cout << arr[i] << endl;
-		// }
-
-		//Choose algorithm based on user input
-		auto t1 = Clock::now();
-		auto t2 = Clock::now();
-		switch(algoType[0]){
-			case 's':
-				temp.selectionsort(temp.arr, temp.size);
-    			t2 = Clock::now();
-				//doubleCheckSort(temp.arr, temp.size);
-				break;
-			case 'i':
-				temp.insertionsort(temp.arr, temp.size);
-    			t2 = Clock::now();
-				//doubleCheckSort(temp.arr, temp.size);
-				break;
-			case 'q':
-				temp.quicksort(temp.arr, 0, temp.size);
-    			t2 = Clock::now();
-				//doubleCheckSort(temp.arr, temp.size);
-				break;
-		}
-		std::cout << "Time for " << temp.size << " " << algoType[0] << " in " <<  typeArray << ": "
-              << std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count()
-              << " nanoseconds" << std::endl;
+	//check to see if data is sorted
+	if (!IsSorted<int>(data, size))
+	{
+		std::cout << "Data not correctly sorted after running algorithm." << std::endl;
+	}
+	else
+	{
+		std::cout << "Data correctly sorted after running algorithm." << std::endl;
 	}
 	return 0;
+}
+template<class T>
+bool CreateData(T* data, char* type, unsigned size)
+{
+	if (strcmp(type, "s") == 0)
+	{
+		CreateSortedData(data, size);
+	}
+	else if (strcmp(type, "r") == 0)
+	{
+		CreateRandomData(data, size);
+	}
+	else if (strcmp(type, "c") == 0)
+	{
+		CreateConstantData(data, size);
+	}
+	else
+	{
+		std::cerr << "Incorrect type specified." << std::endl;
+		return false;
+	}
+	return true;
+}
+//we are assuming that data is already allocated in main for each of the following functions
+template<class T>
+void CreateSortedData(T *data, unsigned size)
+{
+	for (unsigned i = 0; i < size; ++i)
+	{
+		data[i] = i;
+	}
+}
+template<class T>
+void CreateRandomData(T *data, unsigned size)
+{
+	srand(static_cast<unsigned>(time(NULL)));
+	for (unsigned i = 0; i < size; ++i)
+	{
+		data[i] = rand() % size + 1;
+	}
+}
+template<class T>
+void CreateConstantData(T *data, unsigned size)
+{
+	for (unsigned i = 0; i < size; ++i)
+	{
+		data[i] = 1;
+	}
+}
+template<class T>
+bool IsSorted(T* data, unsigned size)
+{
+	for (unsigned i = 0; i < size - 1; ++i)
+	{
+		if (data[i] > data[i + 1])
+		{
+			return false;
+		}
+	}
+	return true;
 }

@@ -2,10 +2,6 @@ template<typename T> class Sorting{
 	public:
 		T *arr;
 		int size;
-		Sorting(int n){
-			size = n;
-			arr = new T[n];
-		}
 		void selectionsort(T data[], int size){
 		    int i,j,t;
 			for(i=0;i<size;i++){
