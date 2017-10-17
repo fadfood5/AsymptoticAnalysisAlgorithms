@@ -1,0 +1,28 @@
+,SS,SC,SR,IS,IC,IR,QS,QC,QR
+10000,0.132 seconds,0.132 seconds,0.140 seconds,32 microseconds,32 microseconds,112 milliseconds,388 microseconds,441 microseconds,621 microseconds
+20000,529 milliseconds,529 milliseconds,560 milliseconds,65 microseconds,64 microseconds,443 milliseconds,809 microseconds,948 microseconds,1.26 milliseconds
+30000,1.19 seconds,1.19 seconds,1.26 seconds,95 microseconds,95 microseconds,997 milliseconds,1.25 milliseconds,1.40 milliseconds,1.98 milliseconds
+"40000									",2.12 seconds,2.12 seconds,2.24 seconds,130 microseconds,126 microseconds,1.77 seconds,1.71 milliseconds,2.01 milliseconds,2.62 milliseconds
+"50000									",3.32 seconds,3.31 seconds,33.50 seconds,158 microseconds,158 microseconds,2.79 seconds,2.14 milliseconds,2.55 milliseconds,3.36 milliseconds
+"60000									",4.77 seconds,4.77 seconds,5.05 seconds,189 microseconds,189 microseconds,4.01 seconds,2.61 milliseconds,2.98 milliseconds,4.03 milliseconds
+"70000									",6.50 seconds,6.50 seconds,6.87 seconds,222 microseconds,222 microseconds,5.43 seconds,3.08 milliseconds,3.81 milliseconds,4.77 milliseconds
+"80000									",8.49 seconds,8.49 seconds,8.96 seconds,253 microseconds,253 microseconds,7.12 seconds,3.58 milliseconds,4.25 milliseconds,5.44 milliseconds
+"90000									",10.74 seconds,10.80 seconds,11.34 seconds,285 microseconds,285 microseconds,8.99 seconds,4.02 milliseconds,4.74 milliseconds,6.12 milliseconds
+"100000									",13.26 seconds,13.26 seconds,14 seconds,321 microseconds,321 microseconds,11.16 seconds,4.50 milliseconds,5.39 milliseconds,6.88 milliseconds
+"500000									",5.55 minutes,5.55 minutes,5.80 minutes,1.58 milliseconds,1.58 milliseconds,4.62 minutes,24.96 milliseconds,29.24 milliseconds,37.85 milliseconds
+"1000000									",22.27 minutes,22.27 minutes,23.08 minutes,3.17 milliseconds,3.17 milliseconds,18.21 minutes,51.95 milliseconds,61.46 milliseconds,78.05 milliseconds
+"10000000									",N/A,N/A,N/A,32.24 milliseconds,32.31 milliseconds,N/A,595.66 milliseconds,746.23 milliseconds,891.77 milliseconds
+"100000000									",N/A,N/A,N/A,322.78 milliseconds,322.40 milliseconds,N/A,6.69 seconds,8.24 seconds,9.75 seconds
+"1000000000									",N/A,N/A,N/A,1.39 minutes,2.21 minutes,N/A,4.11 minutes,4.43 minutes,4.66 minutes
+"									",,,,,,,,,
+,,,,,,,,,
+"Key									",,,,,,,,,
+SS,"Selection sort with sorted data							",,,,,,,,
+SC,"Selection sort with constant data							",,,,,,,,
+SR,"Selection sort with random data							",,,,,,,,
+IS,"Insertion sort with sorted data							",,,,,,,,
+IC,"Insertion sort with constant data							",,,,,,,,
+IR,"Insertion sort with random data							",,,,,,,,
+QS,"Quicksort with sorted data								",,,,,,,,
+QC,"Quicksort with constant data								",,,,,,,,
+QR,"Quicksort with random data								",,,,,,,,

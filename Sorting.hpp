@@ -49,19 +49,4 @@ template<typename T> class Sorting{
 	      if (i < right)
 	            quicksort(arr, i, right);
 		}
-		void fillArray(T arr[], int n, int arrKind){
-			if(arrKind == 0){
-				for(int i=0; i<n; i++){
-					arr[i] = i;
-				}
-			}else if(arrKind == 1){
-				for(int i=0; i<n; i++){
-					arr[i] = 0;
-				}
-			}else if(arrKind == 2){
-				for(int i=0; i<n; i++){
-					arr[i] = rand() % 10;
-				}
-			}
-		}
 };
